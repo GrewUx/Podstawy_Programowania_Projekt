@@ -8,8 +8,13 @@ Twoim zadaniem jest stworzenie programu umożliwiającego zarządzanie danymi o 
 Każdy post posiada minimalny (może być rozszerzony) zestaw cech, które muszą zostać zapisane w systemie:
 
 -numeru ID wpisu - wewnętrzny unikalny identyfikator wszystkich wpisów w systemie (nadawany automatycznie w momencie dodania wpisu);
+
 -nazwa autora - nazwa użytkownika publikującego wpis, o maksymalnej długości 100 znaków. Pole może zawierać pseudonim, nazwę konta lub inny identyfikator;
+
 -treść posta - tekst wpisu, o maksymalnej długości zależnej od projektu (np. do 280 znaków). Treść powinna być przechowywana jako tekst i nie powinna być traktowana jako pole kluczowe;
+
 -kategoria zgłoszenia - powód, dla którego post został zgłoszony: spam, hejt, wulgaryzmy, fejk-news, nieodpowiednie treści. 
+
 -liczba zgłoszeń - liczba określająca, ile razy użytkownicy zgłosili dany post do moderacji;
+
 -status moderacji - aktualny stan wpisu, np.: do weryfikacji, w trakcie analizy, zatwierdzone, usunięte. Posty, które nie zostały jeszcze przeanalizowane przez moderatora, nie mogą zostać usunięte. Najpierw należy zmienić ich status na zatwierdzone lub usunięte w wyniku moderacji. Program powinien zablokować próbę usunięcia i wyświetlić stosowny komunikat.
