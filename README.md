@@ -1,2 +1,2 @@
-# Podstawy_Programowania_Projekt
-Na studia
+# PP_projekt
+10. Moderacyjna Baza Postów Social-Media
