@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INPUT_FILE "reporty_test.txt"
-
 enum post_report_reason
 {
     SPAM,
@@ -155,8 +153,14 @@ void add_post(quick_talk_post_reported **header)
     new->post_id = max_id + 1;
     printf("Podaj nazwe autora (max 100 znakow): ");
     scanf(" %100[^\n]", new->post_creator_id);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("Podaj tresc posta (max 280 znakow): ");
     scanf(" %280[^\n]", new->post_description);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("Wybierz kategorie (0-Spam, 1-Hejt, 2-Wulgaryzmy, 3-Fejk-news, 4-Nieodpowiednie): ");
     int reason_choice;
     if (scanf("%d", &reason_choice) != 1)
@@ -299,6 +303,9 @@ void search_by_author(quick_talk_post_reported *header)
     char search_term[101];
     printf("Podaj nazwe autora lub jej poczatek: ");
     scanf(" %100[^\n]", search_term);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     int len = strlen(search_term);
     int found_count = 0;
 
@@ -531,9 +538,50 @@ void delete_multiple_by_category(quick_talk_post_reported **header)
     }
 }
 
-int main()
+void save_to_text_file(quick_talk_post_reported *header, const char *sciezka)
 {
-    quick_talk_post_reported *list = read_text_file(INPUT_FILE);
+    FILE *plik = fopen(sciezka, "w");
+    if (!plik)
+    {
+        perror("Blad zapisu do pliku!");
+        return;
+    }
+    quick_talk_post_reported *current = header;
+    int count = 0;
+
+    while (current != NULL)
+    {
+        fprintf(plik, "%d|%s|%s|%d|%d|%d\n",
+                current->post_id, current->post_creator_id, current->post_description, current->post_report_counter, (int)current->post_report_reason, (int)current->post_mod_status
+
+        );
+
+        current = current->next;
+        count++;
+    }
+
+    fclose(plik);
+    printf("Pomyslnie zapisano %d obiektow do pliku %s\n", count, sciezka);
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+
+        printf("Blad: Nie podano nazwy pliku wejsciowego!\n");
+        printf("Uzycie: %s <nazwa_pliku.txt>\n", argv[0]);
+        return 1;
+    }
+    char *name_of_file = argv[1];
+    quick_talk_post_reported *list = read_text_file(name_of_file);
+
+    if (!list)
+    {
+        printf("Nie udalo sie wczytac danych z pliku: %s\n", name_of_file);
+        return 1;
+    }
+
     int choice;
 
     do
@@ -546,7 +594,7 @@ int main()
         printf("5. Wyszukaj posty\n");
         printf("6. Sortowanie\n");
         printf("7. Usun posty masowo\n");
-        printf("0. Wyjdz i zapisz\n");
+        printf("0. Zapisz i wyjdz z programu\n");
         printf("Wybor: ");
         scanf("%d", &choice);
 
@@ -562,6 +610,8 @@ int main()
             delete_post(&list);
             break;
         case 0:
+            printf("Zapisywanie danych...\n");
+            save_to_text_file(list, name_of_file);
             printf("Zamykanie programu...\n");
             break;
         case 4:
