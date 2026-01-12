@@ -465,6 +465,72 @@ void sort_by_numeric(quick_talk_post_reported *header, int mode)
     printf("Lista zostala posortowana liczbowo.\n");
 }
 
+void delete_multiple_by_category(quick_talk_post_reported **header)
+{
+    if (*header == NULL)
+    {
+        printf("Baza jest pusta!");
+        return;
+    }
+    printf("\nWybierz kategorie do masowego usuniecia: \n");
+    printf("0-Spam, 1-Hejt, 2-Wulgaryzmy, 3-Fejk-news, 4-Nieodpowiednie\nWybor: ");
+
+    int cat_choice;
+    if (scanf("%d", &cat_choice) != 1 || cat_choice < 0 || cat_choice > 4)
+    {
+        printf("Nieprawidlowy wybor!");
+        while (getchar() != '\n')
+            ;
+        return;
+    }
+
+    quick_talk_post_reported *current = *header;
+    quick_talk_post_reported *previous = NULL;
+    int deleted_count = 0;
+    int blocked_count = 0;
+
+    while (current != NULL)
+    {
+        if ((int)current->post_report_reason == cat_choice)
+        {
+            if (current->post_mod_status == DO_WERYFIKACJI)
+            {
+                blocked_count++;
+                previous = current;
+                current = current->next;
+            }
+            else
+            {
+                quick_talk_post_reported *temp = current;
+                if (previous == NULL)
+                {
+                    *header = current->next;
+                    current = *header;
+                }
+                else
+                {
+                    previous->next = current->next;
+                    current = previous->next;
+                }
+
+                free(temp);
+                deleted_count++;
+            }
+        }
+        else
+        {
+            previous = current;
+            current = current->next;
+        }
+    }
+    printf("\n--- RAPORT USUNIECIA---\n");
+    printf("Usunieto poprawnie %d postow.\n", deleted_count);
+    if (blocked_count > 0)
+    {
+        printf("Zablokowano usuniecie %d postow (status 'Do weryfikacji').\n", blocked_count);
+    }
+}
+
 int main()
 {
     quick_talk_post_reported *list = read_text_file(INPUT_FILE);
@@ -475,10 +541,11 @@ int main()
         printf("\n--- MENU QUICKTALK ---\n");
         printf("1. Wyswietl wszystkie posty\n");
         printf("2. Dodaj nowy post\n");
-        printf("3. Usun post\n");
+        printf("3. Usun wybrany post\n");
         printf("4. Edytuj status posta\n");
         printf("5. Wyszukaj posty\n");
         printf("6. Sortowanie\n");
+        printf("7. Usun posty masowo\n");
         printf("0. Wyjdz i zapisz\n");
         printf("Wybor: ");
         scanf("%d", &choice);
@@ -547,6 +614,9 @@ int main()
             {
                 printf("Niepoprawny wybor.\n");
             }
+            break;
+        case 7:
+            delete_multiple_by_category(&list);
             break;
         default:
             printf("Bledny wybor!\n");
