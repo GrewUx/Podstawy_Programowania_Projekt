@@ -1,10 +1,10 @@
-1|AnnaNowak|To jest spamerska reklama kursu!|15|0|0
-2|Marek88|Nienawidze tej grupy, wszyscy jestescie beznadziejni.|42|1|1
-3|Kotolub|Zobaczcie mojego nowego mruczka, jest slodki.|2|0|2
-4|Prawda24|Ziemia jest plaska, to spisek rzadu!|120|3|0
-5|UserXYZ|Slowo na w, ktorego nie wolno uzywac.|8|2|3
 6|Moderator|Przypominam o regulaminie naszej platformy.|0|0|2
-7|Janusz_Biznesu|Kupujcie krypto teraz, 1000% zysku gwarantowane!|55|0|1
-8|Zlosliwy|Ty glupi czlowieku, nic nie rozumiesz.|12|1|0
+11|Kozaczek|Nie ladne|1|3|2
+12|Mareczek Srubak|ALE PECH|1|3|0
 9|NewsBot|Wczoraj odbylo sie otwarcie nowego stadionu.|1|0|2
 10|Troll123|Ale tutaj nudy, ide stad.|4|4|0
+5|UserXYZ|Slowo na w, ktorego nie wolno uzywac.|8|2|3
+8|Zlosliwy|Ty glupi czlowieku, nic nie rozumiesz.|12|1|0
+1|AnnaNowak|To jest spamerska reklama kursu!|15|0|0
+7|Janusz_Biznesu|Kupujcie krypto teraz, 1000% zysku gwarantowane!|55|0|1
+4|Prawda24|Ziemia jest plaska, to spisek rzadu!|120|3|0
